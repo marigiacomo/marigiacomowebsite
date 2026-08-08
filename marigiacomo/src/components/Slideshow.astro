@@ -1,0 +1,167 @@
+---
+interface Slide {
+  src: string;
+  alt: string;
+  caption?: string;
+}
+
+interface Props {
+  slides: Slide[];
+  label: string;
+}
+
+const { slides, label } = Astro.props;
+---
+
+<div class="slideshow" data-slideshow aria-roledescription="carousel" aria-label={label}>
+  <div class="slides" data-slides tabindex="0" aria-live="polite">
+    {slides.map((s, i) => (
+      <figure class="slide" data-slide aria-label={`${i + 1} of ${slides.length}`}>
+        <img
+          src={s.src}
+          alt={s.alt}
+          loading={i === 0 ? 'eager' : 'lazy'}
+          decoding="async"
+        />
+        {s.caption && <figcaption>{s.caption}</figcaption>}
+      </figure>
+    ))}
+  </div>
+
+  <div class="controls" data-controls hidden>
+    <button type="button" data-prev aria-label={`Previous photo of ${label}`}>&larr;</button>
+    <span class="counter" data-counter>1 / {slides.length}</span>
+    <button type="button" data-next aria-label={`Next photo of ${label}`}>&rarr;</button>
+  </div>
+</div>
+
+<style>
+  .slideshow { margin: 1.5rem 0 2.25rem; }
+
+  .slides {
+    display: flex;
+    gap: 0.75rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .slides:focus-visible { outline: 2px solid var(--link); outline-offset: 4px; }
+
+  .slide {
+    flex: 0 0 100%;
+    scroll-snap-align: center;
+    margin: 0;
+    min-width: 0;
+  }
+
+  .slide img {
+    width: 100%;
+    height: min(70vh, 520px);
+    object-fit: contain;
+    object-position: center;
+    border-radius: 2px;
+  }
+
+  .slide figcaption {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    line-height: 1.55;
+    color: var(--ink-faint);
+    margin-top: 0.6rem;
+  }
+
+  .controls {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 0.9rem;
+  }
+
+  .controls button {
+    background: transparent;
+    color: var(--ink-soft);
+    border: 1px solid var(--rule);
+    padding: 0.3rem 0.7rem;
+    font-size: 0.9rem;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+
+  .controls button:hover:not(:disabled) {
+    background: transparent;
+    color: var(--ink);
+    border-color: var(--ink);
+  }
+
+  .controls button:disabled { opacity: 0.35; cursor: default; }
+
+  .counter {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+    letter-spacing: 0.04em;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .slides { scroll-behavior: auto; }
+  }
+</style>
+
+<script>
+  document.querySelectorAll('[data-slideshow]').forEach((root) => {
+    const track = root.querySelector('[data-slides]') as HTMLElement | null;
+    const controls = root.querySelector('[data-controls]') as HTMLElement | null;
+    const prev = root.querySelector('[data-prev]') as HTMLButtonElement | null;
+    const next = root.querySelector('[data-next]') as HTMLButtonElement | null;
+    const counter = root.querySelector('[data-counter]') as HTMLElement | null;
+    const slides = Array.from(root.querySelectorAll('[data-slide]')) as HTMLElement[];
+    if (!track || !controls || !prev || !next || !counter || slides.length < 2) return;
+
+    controls.hidden = false;
+    let index = 0;
+
+    const paint = () => {
+      counter.textContent = `${index + 1} / ${slides.length}`;
+      prev.disabled = index === 0;
+      next.disabled = index === slides.length - 1;
+    };
+
+    const go = (i: number) => {
+      index = Math.max(0, Math.min(slides.length - 1, i));
+      track.scrollTo({ left: slides[index].offsetLeft - track.offsetLeft });
+      paint();
+    };
+
+    prev.addEventListener('click', () => go(index - 1));
+    next.addEventListener('click', () => go(index + 1));
+
+    track.addEventListener('keydown', (e) => {
+      const ev = e as KeyboardEvent;
+      if (ev.key === 'ArrowRight') { ev.preventDefault(); go(index + 1); }
+      if (ev.key === 'ArrowLeft') { ev.preventDefault(); go(index - 1); }
+    });
+
+    let tick: number;
+    track.addEventListener('scroll', () => {
+      window.clearTimeout(tick);
+      tick = window.setTimeout(() => {
+        const mid = track.scrollLeft + track.clientWidth / 2;
+        let closest = 0;
+        let best = Infinity;
+        slides.forEach((s, i) => {
+          const c = s.offsetLeft - track.offsetLeft + s.clientWidth / 2;
+          const d = Math.abs(c - mid);
+          if (d < best) { best = d; closest = i; }
+        });
+        index = closest;
+        paint();
+      }, 90);
+    });
+
+    paint();
+  });
+</script>

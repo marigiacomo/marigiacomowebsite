@@ -1,8 +1,56 @@
 ---
 import Base from '../layouts/Base.astro';
+import Slideshow from '../components/Slideshow.astro';
+
+const mantova = [
+  { src: '/images/mantova-1.webp', alt: `The Anywhim storefront in Mantova seen from the street`, caption: `Mantova. Where it started, and where everything else got tested first.` },
+  { src: '/images/mantova-2.webp', alt: `Interior of the Mantova store with a display screen and clothing rails`, caption: `The screen ran drops and campaigns. Half of retail is telling people something is happening.` },
+  { src: '/images/mantova-3.webp', alt: `Apparel and footwear displayed together in the Mantova store`, caption: `Apparel next to footwear — the mix took three years to get right.` },
+  { src: '/images/mantova-4.webp', alt: `A full wall of sneakers on display in the Mantova store`, caption: `Roughly 150 SKUs live at any moment, across four sites and a warehouse.` },
+];
+
+const riccione = [
+  { src: '/images/riccione-1.webp', alt: `Interior of the Riccione store looking towards the entrance`, caption: `Riccione. A narrow unit, which forced better decisions about what earned shelf space.` },
+  { src: '/images/riccione-2.webp', alt: `Clothing rails and wall display inside the Riccione store`, caption: `Seasonal town: the assortment had to move faster here than anywhere else.` },
+  { src: '/images/riccione-3.webp', alt: `Lit display cabinets of sneakers at the Riccione shopfront`, caption: `The window cabinet did more selling than any campaign we ran.` },
+  { src: '/images/riccione-4.webp', alt: `Display shelving and cabinets inside the Riccione store`, caption: `Riccione, after the refit.` },
+];
+
+const cortina = [
+  { src: '/images/cortina-2.webp', alt: `The Anywhim storefront in Cortina d’Ampezzo during snowfall`, caption: `Cortina d’Ampezzo. Different customer, different price point, entirely different season.` },
+  { src: '/images/cortina-1.webp', alt: `Interior of the Cortina store with timber and antler fittings`, caption: `The fit-out came with the building. We worked with it rather than against it.` },
+  { src: '/images/cortina-3.webp', alt: `View through the Cortina store interior towards the entrance`, caption: `Long and narrow, which made stock allocation a weekly argument.` },
+  { src: '/images/cortina-4.webp', alt: `Sneakers displayed in glass cases in the Cortina store`, caption: `A mountain town in winter: the highest revenue per square metre of the four.` },
+];
+
+const milano = [
+  { src: '/images/milano-1.webp', alt: `Display table of sneakers beside a screen in the Milano Marittima store`, caption: `Milano Marittima. The last one we opened, and the one we got right fastest.` },
+  { src: '/images/milano-2.webp', alt: `Open-plan interior of the Milano Marittima store with shelving`, caption: `Everything learned from the first three, applied at once.` },
+  { src: '/images/milano-3.webp', alt: `Interior of the Milano Marittima store looking out to the street`, caption: `Open frontage. Summer trade lives or dies on people wandering in.` },
+  { src: '/images/milano-4.webp', alt: `Product display and branding inside the Milano Marittima store`, caption: `Four stores meant four versions of the same problem, and never the same answer.` },
+];
+
+// All of these are published with the permission of the people in them.
+const journey = [
+  { src: '/images/journey-5.webp', alt: `Two people working together at a laptop on a workbench`, caption: `Most decisions got made like this, over a laptop, usually late.` },
+  { src: '/images/journey-12.webp', alt: `A person standing in front of stacked delivery boxes in an unfinished room`, caption: `A unit before it becomes a shop. This is the part nobody photographs.` },
+  { src: '/images/journey-6.webp', alt: `A stockroom filled with shoe boxes, packing materials and unopened deliveries`, caption: `The stockroom, honestly represented.` },
+  { src: '/images/journey-8.webp', alt: `A person loading cardboard boxes into the back of a van`, caption: `Moving stock between sites. Four locations means this happens constantly.` },
+  { src: '/images/journey-7.webp', alt: `Cardboard boxes of stock stacked on a pavement outside a building`, caption: `A delivery, on a pavement, because the van could not get any closer.` },
+  { src: '/images/journey-14.webp', alt: `A person clearing flattened cardboard and empty boxes after a delivery`, caption: `Every delivery ends the same way.` },
+  { src: '/images/journey-11.webp', alt: `People kneeling on a shop floor unpacking boxes of shoes before opening`, caption: `Setting up. Everything on the floor before anything is on a shelf.` },
+  { src: '/images/journey-9.webp', alt: `A group standing outside the shopfront on opening day`, caption: `Opening day. Worth the months that made it possible.` },
+  { src: '/images/journey-10.webp', alt: `A person standing outside the store window`, caption: `Outside the window, which took a long time to earn.` },
+  { src: '/images/journey-2.webp', alt: `Three people standing together inside one of the stores`, caption: `Three of us, in a shop that existed because we built it.` },
+  { src: '/images/journey-3.webp', alt: `A hand holding a stack of branded Anywhim cups`, caption: `Branded cups. The unglamorous half of building something people recognise.` },
+  { src: '/images/journey-13.webp', alt: `Anywhim branded football shirts laid flat`, caption: `We sponsored a local team. Small town, and it worked better than advertising.` },
+  { src: '/images/journey-15.webp', alt: `Promotional graphic showing the Anywhim online store on a laptop and phone`, caption: `The e-commerce launch. Ten percent of revenue, and considerably more than ten percent of the work.` },
+  { src: '/images/journey-4.webp', alt: `A group sitting together on a sofa in the evening`, caption: `The other half of a small company: the people you end up spending your twenties with.` },
+  { src: '/images/journey-1.webp', alt: `A group standing in front of the Trevi Fountain in Rome`, caption: `Rome. Not everything was work.` },
+];
 ---
 
-<Base title="Projects" description="Anywhim, Whimtrade, and what Giacomo Mari is building now.">
+<Base title="Projects" description="Anywhim, Whimtrade, and what Giacomo Mari is building now." wide>
   <h1>Projects</h1>
   <p class="sub">
     Four things I have built, in the order they happened. Two of them no longer exist,
@@ -10,29 +58,36 @@ import Base from '../layouts/Base.astro';
   </p>
 
   <h2>Anywhim</h2>
-  <span class="label">Retail company · 2021–2024 · Mantova, Italy</span>
+  <span class="label">Retail company · 2021–2024 · Italy</span>
   <p>
     A multi-site retail business in high-end fashion and resale, co-founded with two partners
-    when I was 18. Over three years it grew to four stores — Mantova, Riccione, Cortina
-    d’Ampezzo and Milano Marittima — a central warehouse, an online shop, and a wholesale
-    brand, reaching €1,000,000 in annual turnover. At peak we were eight people and I was
-    responsible for the team.
+    when I was 18. Over three years it grew to four stores, a central warehouse, an online shop
+    and a wholesale brand, reaching €1,000,000 in annual turnover. At peak we were eight people
+    and I was responsible for the team.
   </p>
   <p>
     It closed in December 2024. I have written more about why elsewhere, but the short version
-    is that a business can be profitable at the till and still be the wrong shape underneath.
+    is that a business can be healthy at the till and still be the wrong shape underneath.
     I learned more from the wind-down than from any of the growth.
   </p>
 
-  <!-- Add photos of the stores here. Drop the files in public/images/ and update the paths. -->
-  <div class="gallery">
-    <figure class="figure" style="margin:0">
-      <img src="/images/anywhim-store-1.jpg" alt="The Anywhim store in Mantova" loading="lazy" />
-    </figure>
-    <figure class="figure" style="margin:0">
-      <img src="/images/anywhim-store-2.jpg" alt="The Anywhim store in Cortina d’Ampezzo" loading="lazy" />
-    </figure>
-  </div>
+  <h3>Mantova</h3>
+  <Slideshow slides={mantova} label="the Mantova store" />
+
+  <h3>Riccione</h3>
+  <Slideshow slides={riccione} label="the Riccione store" />
+
+  <h3>Cortina d’Ampezzo</h3>
+  <Slideshow slides={cortina} label="the Cortina d’Ampezzo store" />
+
+  <h3>Milano Marittima</h3>
+  <Slideshow slides={milano} label="the Milano Marittima store" />
+
+  <h3>Along the way</h3>
+  <p>
+    Four storefronts is the version that photographs well. Most of it looked like this.
+  </p>
+  <Slideshow slides={journey} label="building the company" />
 
   <h2>Whimtrade</h2>
   <span class="label">Internal operations system · 2022–2024</span>

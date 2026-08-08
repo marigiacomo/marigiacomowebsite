@@ -1,12 +1,12 @@
 :root {
-  --paper: #fbfbf8;
+  --paper: #fdfdfc;
   --ink: #1a1a17;
   --ink-soft: #55554d;
   --ink-faint: #8a8a80;
-  --rule: #e2e1d8;
+  --rule: #e6e5de;
   --link: #17457f;
   --link-visited: #5b3f7a;
-  --mark: #f0eee2;
+  --mark: #f4f3ed;
 
   --serif: "Source Serif 4", Charter, Georgia, "Times New Roman", serif;
   --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
@@ -391,4 +391,28 @@ button:hover { background: var(--ink-soft); border-color: var(--ink-soft); }
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* ---- homepage intro ---- */
+
+.intro {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.75rem;
+  margin-bottom: 2.5rem;
+}
+
+.intro-text { max-width: 52ch; }
+.intro-text > *:last-child { margin-bottom: 0; }
+
+.portrait {
+  flex: 0 0 158px;
+  width: 158px;
+  border-radius: 3px;
+  margin-top: 0.3rem;
+}
+
+@media (max-width: 36rem) {
+  .intro { flex-direction: column-reverse; gap: 1.25rem; }
+  .portrait { flex: none; width: 132px; }
 }

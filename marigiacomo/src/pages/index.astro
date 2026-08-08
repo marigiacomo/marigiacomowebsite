@@ -9,18 +9,30 @@ const posts = (await getCollection('writing', ({ data }) => !data.draft))
 const fmt = (d: Date) =>
   d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
 ---
-<Base>
-  <p class="lede">
-    I am a BSc student in Entrepreneurship and Business Innovation at Tilburg University.
-    Before that I spent four years co-founding and running Anywhim, a retail company in Italy
-    that grew to four stores and closed at the end of 2024.
-  </p>
+<Base wide>
+  <div class="intro">
+    <div class="intro-text">
+      <p class="lede">
+        I am a BSc student in Entrepreneurship and Business Innovation at Tilburg University.
+        Before that I spent four years co-founding and running Anywhim, a retail company in Italy
+        that grew to four stores and closed at the end of 2024.
+      </p>
 
-  <p class="sub">
-    I am mostly interested in the machinery underneath things: supply chains, the semiconductor
-    industry, and how large language models are changing what one person can build alone.
-    I write about what I read and what I get wrong.
-  </p>
+      <p style="color:var(--ink-soft)">
+        I am mostly interested in the machinery underneath things: supply chains, the semiconductor
+        industry, and how large language models are changing what one person can build alone.
+        I write about what I read and what I get wrong.
+      </p>
+    </div>
+
+    <img
+      class="portrait"
+      src="/images/giacomo.webp"
+      alt="Giacomo Mari"
+      width="506"
+      height="700"
+    />
+  </div>
 
   <h2>Writing</h2>
   {posts.length === 0 ? (
