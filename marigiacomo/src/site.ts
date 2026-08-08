@@ -5,6 +5,6 @@ export const site = {
   linkedin: 'https://www.linkedin.com/in/giacomo-mari-050ab1344/',
   github: '',
   tagline: 'Entrepreneurship and Business Innovation student in Tilburg. Previously co-founded and ran a four-store retail company in Italy.',
-  web3formsKey: 'PASTE_YOUR_WEB3FORMS_ACCESS_KEY_HERE',
+  web3formsKey: 'd7bb254b-25d9-4775-9872-f3bdf630fdc1',
   mailerliteEmbedUrl: '',
 };
