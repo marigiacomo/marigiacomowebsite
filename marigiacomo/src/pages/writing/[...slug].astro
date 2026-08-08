@@ -11,12 +11,23 @@ const { post } = Astro.props;
 const { Content } = await render(post);
 
 const fmt = (d: Date) =>
-  d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+  d.toLocaleDateString(post.data.lang === 'it' ? 'it-IT' : 'en-GB', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  });
 ---
-<Base title={post.data.title} description={post.data.summary}>
+<Base title={post.data.title} description={post.data.summary} lang={post.data.lang}>
   <article>
-    <span class="label">{post.data.kind} · {fmt(post.data.date)}</span>
+    <span class="label">{post.data.kind} · {fmt(post.data.date)} · {post.data.lang === 'it' ? 'in italiano' : 'in English'}</span>
     <h1>{post.data.title}</h1>
+    {post.data.translation && (
+      <p class="meta" style="margin:-0.4rem 0 1.5rem">
+        <a href={`/writing/${post.data.translation}/`}>
+          {post.data.lang === 'it' ? 'Read this in English' : 'Leggi in italiano'}
+        </a>
+      </p>
+    )}
     <Content />
   </article>
 

@@ -15,7 +15,7 @@ const fmt = (d: Date) =>
       <p class="lede">
         I am a BSc student in Entrepreneurship and Business Innovation at Tilburg University.
         Before that I spent four years co-founding and running Anywhim, a retail company in Italy
-        that grew to four stores and an e-commerce, closed at the end of 2024.
+        that grew to four stores and closed at the end of 2024.
       </p>
 
       <p style="color:var(--ink-soft)">
@@ -45,6 +45,7 @@ const fmt = (d: Date) =>
           <span>
             <a class="stream-title" href={`/writing/${p.id}/`}>{p.data.title}</a>
             <span class="kind">{p.data.kind}</span>
+            {p.data.lang !== 'en' && <span class="kind">{p.data.lang}</span>}
             {p.data.summary && <p class="stream-summary">{p.data.summary}</p>}
           </span>
         </li>

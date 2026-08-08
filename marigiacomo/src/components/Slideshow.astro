@@ -11,9 +11,10 @@ interface Props {
 }
 
 const { slides, label } = Astro.props;
+const hasCaptions = slides.some((s) => s.caption);
 ---
 
-<div class="slideshow" data-slideshow aria-roledescription="carousel" aria-label={label}>
+<div class:list={['slideshow', { bare: !hasCaptions }]} data-slideshow aria-roledescription="carousel" aria-label={label}>
   <div class="slides" data-slides tabindex="0" aria-live="polite">
     {slides.map((s, i) => (
       <figure class="slide" data-slide aria-label={`${i + 1} of ${slides.length}`}>
@@ -29,26 +30,28 @@ const { slides, label } = Astro.props;
   </div>
 
   <div class="controls" data-controls hidden>
-    <button type="button" data-prev aria-label={`Previous photo of ${label}`}>&larr;</button>
+    <button type="button" data-prev aria-label={`Previous photo of ${label}`}>&lsaquo;</button>
     <span class="counter" data-counter>1 / {slides.length}</span>
-    <button type="button" data-next aria-label={`Next photo of ${label}`}>&rarr;</button>
+    <button type="button" data-next aria-label={`Next photo of ${label}`}>&rsaquo;</button>
   </div>
 </div>
 
 <style>
-  .slideshow { margin: 1.5rem 0 2.25rem; }
+  .slideshow { margin: 1.25rem 0 2rem; }
 
   .slides {
     display: flex;
-    gap: 0.75rem;
+    gap: 0.6rem;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
-    scrollbar-width: thin;
+    scrollbar-width: none;
     -webkit-overflow-scrolling: touch;
   }
 
-  .slides:focus-visible { outline: 2px solid var(--link); outline-offset: 4px; }
+  .slides::-webkit-scrollbar { display: none; }
+
+  .slides:focus-visible { outline: 1px solid var(--rule); outline-offset: 6px; }
 
   .slide {
     flex: 0 0 100%;
@@ -59,55 +62,71 @@ const { slides, label } = Astro.props;
 
   .slide img {
     width: 100%;
-    height: min(70vh, 520px);
+    height: min(64vh, 470px);
     object-fit: contain;
     object-position: center;
-    border-radius: 2px;
   }
 
   .slide figcaption {
     font-family: var(--mono);
-    font-size: 0.72rem;
+    font-size: 0.7rem;
     line-height: 1.55;
     color: var(--ink-faint);
-    margin-top: 0.6rem;
+    margin-top: 0.55rem;
+    padding-right: 4.5rem;
   }
 
+  /* Deliberately near-invisible until you go looking for it. */
   .controls {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    margin-top: 0.9rem;
+    justify-content: flex-end;
+    gap: 0.55rem;
+    margin-top: -1rem;
+    opacity: 0.32;
+    transition: opacity 140ms ease;
   }
+
+  /* With no caption below the image there is nothing to sit alongside,
+     so the negative offset has to go. */
+  .slideshow.bare .controls { margin-top: 0.5rem; }
+
+  .slideshow:hover .controls,
+  .slideshow:focus-within .controls { opacity: 1; }
 
   .controls button {
-    background: transparent;
+    background: none;
+    border: 0;
+    padding: 0 0.15rem;
+    margin: 0;
     color: var(--ink-soft);
-    border: 1px solid var(--rule);
-    padding: 0.3rem 0.7rem;
+    font-family: var(--mono);
     font-size: 0.9rem;
     line-height: 1;
-    text-transform: none;
     letter-spacing: 0;
+    text-transform: none;
   }
 
-  .controls button:hover:not(:disabled) {
-    background: transparent;
-    color: var(--ink);
-    border-color: var(--ink);
-  }
-
-  .controls button:disabled { opacity: 0.35; cursor: default; }
+  .controls button:hover:not(:disabled) { background: none; color: var(--ink); }
+  .controls button:disabled { opacity: 0.25; cursor: default; }
 
   .counter {
     font-family: var(--mono);
-    font-size: 0.72rem;
+    font-size: 0.66rem;
     color: var(--ink-faint);
-    letter-spacing: 0.04em;
+    letter-spacing: 0.06em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  @media (max-width: 36rem) {
+    .controls { opacity: 0.55; margin-top: 0.35rem; }
+    .slideshow.bare .controls { margin-top: 0.35rem; }
+    .slide figcaption { padding-right: 0; }
   }
 
   @media (prefers-reduced-motion: reduce) {
     .slides { scroll-behavior: auto; }
+    .controls { transition: none; }
   }
 </style>
 

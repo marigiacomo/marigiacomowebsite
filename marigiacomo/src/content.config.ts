@@ -7,6 +7,8 @@ const writing = defineCollection({
     title: z.string(),
     date: z.date(),
     kind: z.enum(['essay', 'books', 'notes']).default('essay'),
+    lang: z.enum(['en', 'it']).default('en'),
+    translation: z.string().optional(),
     summary: z.string().optional(),
     draft: z.boolean().default(false),
   }),

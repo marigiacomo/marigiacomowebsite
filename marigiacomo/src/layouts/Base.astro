@@ -6,9 +6,10 @@ interface Props {
   title?: string;
   description?: string;
   wide?: boolean;
+  lang?: string;
 }
 
-const { title, description = site.tagline, wide = false } = Astro.props;
+const { title, description = site.tagline, wide = false, lang = 'en' } = Astro.props;
 const pageTitle = title ? `${title} — ${site.name}` : site.name;
 const path = Astro.url.pathname;
 const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
@@ -16,7 +17,7 @@ const year = new Date().getFullYear();
 const w = wide ? 'wrap wrap-wide' : 'wrap';
 ---
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />

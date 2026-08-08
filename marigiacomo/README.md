@@ -73,6 +73,13 @@ More writing. Leave a blank line between paragraphs.
 
 **`kind`** must be one of `essay`, `books`, or `notes`. It shows as a small label in the list.
 
+**`lang`** is `en` or `it`. It sets the page's language so browsers offer to translate
+correctly, and shows a small tag in the list for non-English posts. Leave it out and it
+defaults to English.
+
+**`translation`** links a post to its counterpart in the other language. Put the other
+post's filename (without `.md`) in both posts, and each will link to the other.
+
 **`draft: true`** hides a post from the site. Two skeleton posts are already in there set to
 `draft: true` — they're prompts for you, not published content.
 
@@ -171,3 +178,13 @@ src/pages/contact.astro      contact form
 src/content/writing/         your posts, one file each
 public/                      images, PDF, favicon
 ```
+
+
+---
+
+## Turning off the custom cursor
+
+At the bottom of `src/styles/global.css` there is a block that starts with
+`/* ---- custom cursor ---- */`. Delete the whole block and the standard arrow comes back.
+To change the shape, edit the SVG inside the `url(...)` — the numbers `12 12` after it are
+the hotspot, meaning which pixel of the image counts as the actual click point.
