@@ -9,7 +9,7 @@ const posts = (await getCollection('writing', ({ data }) => !data.draft))
 const fmt = (d: Date) =>
   d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
 ---
-<Base wide>
+<Base>
   <div class="intro">
     <div class="intro-text">
       <p class="lede">

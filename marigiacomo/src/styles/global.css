@@ -4,14 +4,15 @@
   --ink-soft: #55554d;
   --ink-faint: #8a8a80;
   --rule: #e6e5de;
-  --link: #17457f;
-  --link-visited: #5b3f7a;
+  --link: #1a1a17;
+  --link-visited: #1a1a17;
+  --link-underline: #b4b3a8;
   --mark: #f4f3ed;
 
   --serif: "Source Serif 4", Charter, Georgia, "Times New Roman", serif;
   --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
 
-  --measure: 66ch;
+  --measure: 42rem;
   --gutter: clamp(1.25rem, 5vw, 2.5rem);
 }
 
@@ -22,8 +23,9 @@
     --ink-soft: #a9a89f;
     --ink-faint: #78776f;
     --rule: #33322d;
-    --link: #8fb6e8;
-    --link-visited: #b9a0d6;
+    --link: #e8e7e0;
+    --link-visited: #e8e7e0;
+    --link-underline: #55544d;
     --mark: #2a2924;
   }
 }
@@ -48,7 +50,8 @@ body {
   padding: 0 var(--gutter);
 }
 
-.wrap-wide { max-width: 46rem; }
+/* Kept so any leftover `wide` prop is harmless: it now matches .wrap. */
+.wrap-wide { max-width: var(--measure); }
 
 /* ---- masthead ---- */
 
@@ -121,8 +124,17 @@ h3 {
 
 p { margin: 0 0 1.15rem; }
 
-a { color: var(--link); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+/* Links are ink-coloured. The underline alone carries the signal. */
+a {
+  color: var(--link);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-decoration-color: var(--link-underline);
+  text-underline-offset: 3px;
+}
+
 a:visited { color: var(--link-visited); }
+a:hover { text-decoration-color: currentColor; }
 
 .lede {
   font-size: 1.2rem;
@@ -218,11 +230,13 @@ li { margin-bottom: 0.35rem; }
 
 .stream-title {
   font-size: 1.05rem;
-  text-decoration: none;
-  color: var(--link);
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--link-underline);
+  text-underline-offset: 3px;
 }
 
-.stream-title:hover { text-decoration: underline; }
+.stream-title:hover { text-decoration-color: currentColor; }
 
 .stream-summary {
   color: var(--ink-soft);
@@ -314,7 +328,7 @@ input[type="text"], input[type="email"], textarea {
 }
 
 input:focus-visible, textarea:focus-visible, button:focus-visible, a:focus-visible {
-  outline: 2px solid var(--link);
+  outline: 2px solid var(--ink);
   outline-offset: 2px;
 }
 
@@ -408,12 +422,12 @@ button:hover { background: var(--ink-soft); border-color: var(--ink-soft); }
   margin-bottom: 2.5rem;
 }
 
-.intro-text { max-width: 52ch; }
+.intro-text { min-width: 0; }
 .intro-text > *:last-child { margin-bottom: 0; }
 
 .portrait {
-  flex: 0 0 158px;
-  width: 158px;
+  flex: 0 0 142px;
+  width: 142px;
   border-radius: 3px;
   margin-top: 0.3rem;
 }
