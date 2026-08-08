@@ -1,0 +1,81 @@
+---
+import Base from '../layouts/Base.astro';
+
+// ---- Reading log ----
+// Newest at the top. Add a book by copying one line and editing it.
+//
+//   year:    the year you finished it, as a number
+//   title:   the book
+//   author:  the author
+//   note:    one line, in your own words. Optional — leave it as `` and nothing shows.
+//   post:    optional. The filename of a review in src/content/writing (without .md),
+//            which turns the title into a link to your full review.
+//
+// Backticks everywhere, so apostrophes are safe.
+
+const books = [
+  {
+    year: 2026,
+    title: `Chip War`,
+    author: `Chris Miller`,
+    note: `The whole modern economy, explained through one component.`,
+    post: ``,
+  },
+  {
+    year: 2026,
+    title: `Code`,
+    author: `Charles Petzold`,
+    note: `From a torch and a wire up to a working computer, without skipping a step.`,
+    post: ``,
+  },
+  {
+    year: 2025,
+    title: `Silicio`,
+    author: `Federico Faggin`,
+    note: `The man who designed the first microprocessor, on how it actually happened.`,
+    post: ``,
+  },
+];
+
+const years = [...new Set(books.map((b) => b.year))].sort((a, b) => b - a);
+---
+
+<Base
+  title="Reading"
+  description="Books Giacomo Mari has finished, with a line on each."
+>
+  <h1>Reading</h1>
+  <p class="sub">
+    Books I have finished, newest first. One line each. Where I have written more, the title
+    links to the review.
+  </p>
+
+  {years.map((year) => (
+    <>
+      <h2>{year}</h2>
+      <ul class="stream">
+        {books
+          .filter((b) => b.year === year)
+          .map((b) => (
+            <li>
+              <span class="stream-date">{b.author}</span>
+              <span>
+                {b.post ? (
+                  <a class="stream-title" href={`/writing/${b.post}/`}>{b.title}</a>
+                ) : (
+                  <span class="stream-title" style="color:var(--ink)">{b.title}</span>
+                )}
+                {b.note && <p class="stream-summary">{b.note}</p>}
+              </span>
+            </li>
+          ))}
+      </ul>
+    </>
+  ))}
+
+  <hr />
+
+  <p class="form-note">
+    Recommendations are welcome — <a href="/contact">tell me what I should read next</a>.
+  </p>
+</Base>
