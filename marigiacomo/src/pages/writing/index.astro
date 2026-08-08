@@ -1,0 +1,54 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('writing', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+---
+<Base title="Writing" description="Essays, notes and book reviews by Giacomo Mari.">
+  <h1>Writing</h1>
+  <p class="sub">
+    Essays, short notes, and books I have finished. No schedule, no theme beyond what I happen
+    to be thinking about.
+  </p>
+
+  {posts.length === 0 ? (
+    <p class="meta">Nothing published yet.</p>
+  ) : (
+    <ul class="stream">
+      {posts.map((p) => (
+        <li>
+          <span class="stream-date">{fmt(p.data.date)}</span>
+          <span>
+            <a class="stream-title" href={`/writing/${p.id}/`}>{p.data.title}</a>
+            <span class="kind">{p.data.kind}</span>
+            {p.data.summary && <p class="stream-summary">{p.data.summary}</p>}
+          </span>
+        </li>
+      ))}
+    </ul>
+  )}
+
+  <hr />
+
+  <h2>Get new posts by email</h2>
+  <p class="form-note">
+    Low volume, no tracking, unsubscribe in one click.
+  </p>
+  <!-- Replace the action URL below with your MailerLite embedded form URL. Setup notes are in README.md. -->
+  <form action="MAILERLITE_FORM_ACTION_URL" method="post">
+    <div class="field">
+      <label for="nl-email">Email address</label>
+      <input type="email" id="nl-email" name="fields[email]" required autocomplete="email" />
+    </div>
+    <button type="submit">Subscribe</button>
+  </form>
+
+  <p class="form-note" style="margin-top:1rem">
+    Prefer a reader? <a href="/rss.xml">RSS feed</a>.
+  </p>
+</Base>

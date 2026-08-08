@@ -1,0 +1,41 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../site';
+---
+<Base title="Contact" description="Get in touch with Giacomo Mari.">
+  <h1>Contact</h1>
+  <p class="sub">
+    Recruiters, students, and anyone who wants to argue about a book: all equally welcome.
+    I read everything and reply to most things.
+  </p>
+
+  <form action="https://api.web3forms.com/submit" method="POST">
+    <input type="hidden" name="access_key" value={site.web3formsKey} />
+    <input type="hidden" name="subject" value="New message from marigiacomo.com" />
+    <input type="checkbox" name="botcheck" class="honeypot" tabindex="-1" autocomplete="off" />
+
+    <div class="field">
+      <label for="name">Your name</label>
+      <input type="text" id="name" name="name" required autocomplete="name" />
+    </div>
+
+    <div class="field">
+      <label for="email">Your email</label>
+      <input type="email" id="email" name="email" required autocomplete="email" />
+    </div>
+
+    <div class="field">
+      <label for="message">Message</label>
+      <textarea id="message" name="message" required></textarea>
+    </div>
+
+    <button type="submit">Send message</button>
+  </form>
+
+  <hr />
+
+  <p class="form-note">
+    You can also email me directly at <a href={`mailto:${site.email}`}>{site.email}</a>,
+    or find me on <a href={site.linkedin}>LinkedIn</a>.
+  </p>
+</Base>

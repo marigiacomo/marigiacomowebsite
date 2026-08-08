@@ -1,0 +1,71 @@
+---
+import '../styles/global.css';
+import { site } from '../site';
+
+interface Props {
+  title?: string;
+  description?: string;
+  wide?: boolean;
+}
+
+const { title, description = site.tagline, wide = false } = Astro.props;
+const pageTitle = title ? `${title} — ${site.name}` : site.name;
+const path = Astro.url.pathname;
+const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
+const year = new Date().getFullYear();
+const w = wide ? 'wrap wrap-wide' : 'wrap';
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={new URL(path, Astro.site)} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={new URL(path, Astro.site)} />
+    <meta name="twitter:card" content="summary" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="alternate" type="application/rss+xml" title={site.name} href="/rss.xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+
+    <header class="masthead">
+      <div class={w}>
+        <div class="masthead-inner">
+          <a class="masthead-name" href="/">{site.name}</a>
+          <nav class="nav" aria-label="Primary">
+            <a href="/writing" aria-current={isCurrent('/writing') ? 'page' : undefined}>Writing</a>
+            <a href="/cv" aria-current={isCurrent('/cv') ? 'page' : undefined}>CV</a>
+            <a href="/projects" aria-current={isCurrent('/projects') ? 'page' : undefined}>Projects</a>
+            <a href="/contact" aria-current={isCurrent('/contact') ? 'page' : undefined}>Contact</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <main id="main">
+      <div class={w}><slot /></div>
+    </main>
+
+    <footer>
+      <div class={w}>
+        <div class="footer">
+          <span>© {year} {site.name} · Tilburg, NL</span>
+          <span class="footer-links">
+            <a href={`mailto:${site.email}`}>Email</a>
+            <a href={site.linkedin} rel="me">LinkedIn</a>
+            <a href="/rss.xml">RSS</a>
+          </span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

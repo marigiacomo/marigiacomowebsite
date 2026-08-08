@@ -1,0 +1,51 @@
+---
+import Base from '../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('writing', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 4);
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+---
+<Base>
+  <p class="lede">
+    I am a BSc student in Entrepreneurship and Business Innovation at Tilburg University.
+    Before that I spent four years co-founding and running Anywhim, a retail company in Italy
+    that grew to four stores and closed at the end of 2024.
+  </p>
+
+  <p class="sub">
+    I am mostly interested in the machinery underneath things: supply chains, the semiconductor
+    industry, and how large language models are changing what one person can build alone.
+    I write about what I read and what I get wrong.
+  </p>
+
+  <h2>Writing</h2>
+  {posts.length === 0 ? (
+    <p class="meta">Nothing published yet.</p>
+  ) : (
+    <ul class="stream">
+      {posts.map((p) => (
+        <li>
+          <span class="stream-date">{fmt(p.data.date)}</span>
+          <span>
+            <a class="stream-title" href={`/writing/${p.id}/`}>{p.data.title}</a>
+            <span class="kind">{p.data.kind}</span>
+            {p.data.summary && <p class="stream-summary">{p.data.summary}</p>}
+          </span>
+        </li>
+      ))}
+    </ul>
+  )}
+
+  <p style="margin-top:1.25rem"><a href="/writing">All writing →</a></p>
+
+  <h2>Elsewhere</h2>
+  <p>
+    The <a href="/cv">CV</a> has the full history. <a href="/projects">Projects</a> covers
+    the company, the software we built to run it, and what I am building now.
+    If you want to reach me, <a href="/contact">the contact page</a> is the fastest way.
+  </p>
+</Base>

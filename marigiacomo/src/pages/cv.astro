@@ -1,0 +1,133 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../site';
+
+const experience = [
+  {
+    role: 'Co-founder & Commercial Director',
+    where: 'Ralf Srl (brand: Anywhim) — Mantova, Italy',
+    when: 'Jan 2021 – Dec 2024',
+    points: [
+      'Co-founded and scaled a multi-site retail business to €1,000,000 in annual turnover in three years alongside two partners.',
+      'Opened four retail locations (Mantova, Riccione, Cortina d’Ampezzo, Milano Marittima), running each rollout end to end: site selection, fit-out, supplier setup, recruitment and opening.',
+      'Managed a supplier network of over 50 partners across seven European countries, covering selection, negotiation, inbound logistics and delivery follow-up.',
+      'Controlled roughly 3,500 units of stock across 150 SKUs, split between four stores and a central warehouse.',
+      'Owned the HR function for a team of 8 at peak: hiring, onboarding, training, scheduling, performance conversations and payroll administration.',
+      'Selected, configured and administered the company systems stack, and specified Whimtrade, the internal operations system built with an external software house.',
+      'Wrote and maintained the standard operating procedures used across all four sites, and built the weekly and monthly reporting used to drive procurement, pricing and staffing decisions.',
+      'Managed relationships with banks, insurers, landlords and external legal, accounting and payroll advisors.',
+    ],
+  },
+  {
+    role: 'Sales Representative',
+    where: 'Facchini Grandi Impianti Srl — Italy',
+    when: 'Apr 2025 – Aug 2025',
+    points: [
+      'Managed a portfolio of over 50 B2B clients, generating approximately €150,000 in revenue over five months.',
+      'Prepared quotations and coordinated with technical colleagues on specifications, lead times and delivery of professional kitchen equipment for the hospitality sector.',
+    ],
+  },
+  {
+    role: 'Founder',
+    where: 'TheSneakersBase — Mantova, Italy',
+    when: 'Sep 2020 – Dec 2021',
+    points: [
+      'Started a resale business in rare sneakers and limited-edition streetwear at 18, handling sourcing, pricing, authentication and fulfilment.',
+      'Grew it into wholesale supply for physical and online retail partners.',
+    ],
+  },
+];
+
+const education = [
+  {
+    role: 'BSc Entrepreneurship and Business Innovation',
+    where: 'Tilburg University, Netherlands',
+    when: 'Aug 2025 – present',
+  },
+  {
+    role: 'Strategic Studies for Security and International Policies',
+    where: 'University of Verona, Italy',
+    when: '2024',
+    note: 'One term, discontinued to focus on scaling the business.',
+  },
+  {
+    role: 'Secondary school diploma, Liceo Linguistico',
+    where: 'Liceo Virgilio, Mantova, Italy',
+    when: '2021',
+    note: 'English, French and Chinese culture. Final grade 84/100.',
+  },
+];
+
+const skills = [
+  ['Operations & supply chain', 'Supplier selection, negotiation and performance follow-up across multi-country networks; inbound logistics; warehouse and inventory control; multi-site allocation and replenishment.'],
+  ['Process & documentation', 'Process mapping, standard operating procedures and work instructions, requirements gathering, release testing, rollout and adoption, user documentation.'],
+  ['People', 'Recruitment and selection, onboarding, training design and delivery, scheduling and workforce planning, payroll administration, team management.'],
+  ['Data & reporting', 'Excel to an advanced level (pivot tables, lookups, multi-site sales, stock and supplier dashboards), PowerPoint, Word, Google Workspace.'],
+  ['Systems', 'Shopify (Online and POS), Notion, Superbill, Microsoft 365, Windows Server administration, domain and hosting management (Namecheap, Zoho, Google).'],
+  ['AI-assisted building', 'LLM-assisted development with Claude Code across specification, implementation and iteration; specification design; evaluating where automation is actually worth it.'],
+  ['Commercial & financial', 'B2B and consultative selling, contract drafting, financial reporting, balance sheet and payroll analysis, Italian and EU corporate structures.'],
+  ['Languages', 'Italian (native), English (C1, IELTS), French (professional reading, conversational), Dutch (beginner, in progress).'],
+  ['Certifications', 'IELTS C1 English; OMPT-A Mathematics; driving licence B and AM.'],
+];
+---
+
+<Base title="CV" description="Curriculum vitae of Giacomo Mari — entrepreneurship student in Tilburg, previously co-founder of a four-store retail company in Italy.">
+  <h1>Curriculum vitae</h1>
+  <p class="sub">
+    Italian citizen, based in Tilburg. Available for an internship from September 2026.
+    <a href={`mailto:${site.email}`}>{site.email}</a>
+  </p>
+
+  <h2>Experience</h2>
+  {experience.map((e) => (
+    <div class="entry">
+      <div class="entry-head">
+        <h3 class="entry-title">{e.role}</h3>
+        <span class="meta">{e.when}</span>
+      </div>
+      <p class="entry-where">{e.where}</p>
+      <ul>{e.points.map((p) => <li>{p}</li>)}</ul>
+    </div>
+  ))}
+
+  <h2>Education</h2>
+  {education.map((e) => (
+    <div class="entry">
+      <div class="entry-head">
+        <h3 class="entry-title">{e.role}</h3>
+        <span class="meta">{e.when}</span>
+      </div>
+      <p class="entry-where">{e.where}</p>
+      {e.note && <p style="margin:0; color:var(--ink-soft); font-size:0.95rem">{e.note}</p>}
+    </div>
+  ))}
+
+  <h2>Awards</h2>
+  <div class="entry">
+    <div class="entry-head">
+      <h3 class="entry-title">1st place, ENGAGE.EU International Entrepreneurship Pitch Competition</h3>
+      <span class="meta">2026</span>
+    </div>
+    <p class="entry-where">UNWE, Sofia, Bulgaria</p>
+    <ul>
+      <li>Selected to represent Tilburg University in an intensive programme with students from nine European partner universities.</li>
+      <li>Led an international team to first place overall with a pitch developed during the programme.</li>
+    </ul>
+  </div>
+
+  <h2>Skills</h2>
+  <dl class="skills">
+    {skills.map(([k, v]) => (
+      <div class="skill-row">
+        <dt>{k}</dt>
+        <dd>{v}</dd>
+      </div>
+    ))}
+  </dl>
+
+  <h2>Download</h2>
+  <p>
+    A PDF version is available here: <a href="/giacomo-mari-cv.pdf">giacomo-mari-cv.pdf</a>.
+    For anything not covered above, <a href="/contact">get in touch</a>.
+  </p>
+</Base>

@@ -1,0 +1,77 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="Projects" description="Anywhim, Whimtrade, and what Giacomo Mari is building now.">
+  <h1>Projects</h1>
+  <p class="sub">
+    Four things I have built, in the order they happened. Two of them no longer exist,
+    which turns out to be the more useful half of the list.
+  </p>
+
+  <h2>Anywhim</h2>
+  <span class="label">Retail company · 2021–2024 · Mantova, Italy</span>
+  <p>
+    A multi-site retail business in high-end fashion and resale, co-founded with two partners
+    when I was 18. Over three years it grew to four stores — Mantova, Riccione, Cortina
+    d’Ampezzo and Milano Marittima — a central warehouse, an online shop, and a wholesale
+    brand, reaching €1,000,000 in annual turnover. At peak we were eight people and I was
+    responsible for the team.
+  </p>
+  <p>
+    It closed in December 2024. I have written more about why elsewhere, but the short version
+    is that a business can be profitable at the till and still be the wrong shape underneath.
+    I learned more from the wind-down than from any of the growth.
+  </p>
+
+  <!-- Add photos of the stores here. Drop the files in public/images/ and update the paths. -->
+  <div class="gallery">
+    <figure class="figure" style="margin:0">
+      <img src="/images/anywhim-store-1.jpg" alt="The Anywhim store in Mantova" loading="lazy" />
+    </figure>
+    <figure class="figure" style="margin:0">
+      <img src="/images/anywhim-store-2.jpg" alt="The Anywhim store in Cortina d’Ampezzo" loading="lazy" />
+    </figure>
+  </div>
+
+  <h2>Whimtrade</h2>
+  <span class="label">Internal operations system · 2022–2024</span>
+  <p>
+    Running four stores on spreadsheets stopped working somewhere around store two. Whimtrade
+    was the answer: an internal system covering stock, allocation between sites, cash
+    reconciliation and daily sales reporting, built with an external software house.
+  </p>
+  <p>
+    I was the product owner rather than the engineer. I mapped the existing process, gathered
+    requirements from staff, wrote the workflow and design documentation, worked with the
+    developers through build and testing, then rolled it out across all four locations —
+    training, user documentation, and the feedback loop afterwards.
+  </p>
+  <p>
+    It went down with the company. That is the part that stayed with me: the process knowledge
+    was real, and the software encoding it simply evaporated.
+  </p>
+
+  <h2>Rebuilding it, alone</h2>
+  <span class="label">In progress · 2026</span>
+  <p>
+    I am rebuilding Whimtrade as a standalone product for second-hand retail, this time on my
+    own, using LLM-assisted development. The feature set is different — it is informed by what
+    actually got used in production and what did not.
+  </p>
+  <p>
+    The interesting part is not the product. It is that the same job which previously required
+    an external development team is now something one person with domain knowledge can attempt.
+    I am keeping notes on where that claim holds and where it quietly breaks: where model output
+    needs real review, where a deterministic solution is safer, and how much of the work turns
+    out to be specification rather than code.
+  </p>
+
+  <h2>TheSneakersBase</h2>
+  <span class="label">First venture · 2020–2021</span>
+  <p>
+    Where it started, at 18: sourcing, pricing, authenticating and shipping rare sneakers and
+    limited-edition streetwear, later supplying wholesale to physical and online retailers.
+    Small, unglamorous, and the reason everything after it was possible.
+  </p>
+</Base>
