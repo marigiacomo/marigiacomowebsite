@@ -111,12 +111,36 @@ the RSS link below it still works.
 
 ## Part 4 — Photos and CV
 
-- **Photos**: drop image files into `public/images/`, then reference them as
-  `/images/filename.jpg`. There are two placeholders on the projects page to replace.
-  Resize to about 1600px wide before uploading — phone photos are 5MB and will slow the site.
-- **CV PDF**: put your PDF in `public/` named `giacomo-mari-cv.pdf`. The CV page links to it.
-  **Remove your phone number and date of birth from the public version** — the site gets
-  scraped, and the contact form is the better route in.
+### Slideshows
+
+The projects page has five slideshows: one per store, plus one for the journey. They live at
+the top of `src/pages/projects.astro` as simple lists. To add a photo, add a line:
+
+```js
+{ src: '/images/mantova-5.webp', alt: 'What is in the photo', caption: 'The line under it.' },
+```
+
+`alt` describes the image for screen readers and for anyone whose connection drops it —
+say what is actually in the picture. `caption` is the visible text.
+
+To remove a photo, delete its line. To reorder, move lines around. The counter and arrows
+adjust themselves.
+
+Drop new image files into `public/images/`. Resize to about 1400px on the long edge first —
+phone photos are 5MB each and will make the page crawl.
+
+### Journey photos awaiting permission
+
+Every photo you sent is in `public/images/`, but only the ones without recognisable faces are
+switched on. The rest are listed as commented-out lines in `projects.astro` — the ones starting
+with `//`. Once the people in them have said yes, delete the `//` from that line and write a
+real `alt` and `caption`.
+
+### CV PDF
+
+Put your PDF in `public/` named `giacomo-mari-cv.pdf`. The CV page links to it.
+**Remove your phone number and date of birth from the public version** — the site gets
+scraped, and the contact form is the better route in.
 
 ---
 
