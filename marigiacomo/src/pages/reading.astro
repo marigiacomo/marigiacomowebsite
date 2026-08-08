@@ -26,7 +26,7 @@ const books = [
     year: 2026,
     title: `Chip War`,
     author: `Chris Miller`,
-    note: `An intriguing story of how technology, research, innovation and business can shape geopolotics.`,
+    note: `An intriguing story of how technology, research, innovation and business can shape geopolitics.`,
     post: ``,
   },
   {
@@ -55,7 +55,7 @@ const years = [...new Set(books.map((b) => b.year))].sort((a, b) => b - a);
   <h1>Reading</h1>
   <p class="sub">
     Books I have finished, newest first. One line each. Where I have written more, the title
-    links to the review.
+    links to the review. Not everything I read is on this list.
   </p>
 
   {years.map((year) => (
