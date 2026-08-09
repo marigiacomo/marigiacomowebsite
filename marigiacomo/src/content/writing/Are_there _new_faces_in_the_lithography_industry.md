@@ -3,7 +3,7 @@ title: "Are There New Faces In The Lithography Industry?"
 date: 2026-10-08
 kind: essay
 summary: "Should ASML be scared of new competition?"
-draft: true
+draft: false
 ---
 
 Today a piece of news surfaced on my Apple Stocks app watchlist under the ASML ticker, it was released yesterday, 8th of August, by very well known financial journals such as WSJ and others.  The headline was “ASML Holding Draws Fresh Attention After $400 Million Bet On Lithography Rival”, and my reaction was like, ok, wait a minute, lithography rival? What are we talking about?
