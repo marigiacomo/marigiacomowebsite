@@ -1,6 +1,6 @@
 ---
 title: "Are There New Faces In The Lithography Industry?"
-date: 2026-10-08
+date: 2026-08-10
 kind: essay
 summary: "Should ASML be scared of new competition?"
 draft: false
